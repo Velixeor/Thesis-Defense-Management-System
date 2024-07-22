@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: tdms
+  datasource:
+    url: jdbc:postgresql://localhost:5432/db
+    username: root
+    password: root
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    open-in-view: false
+    show-sql: true
+    hibernate.ddl-auto: validate
+    properties.hibernate:
+        pretty_print: true
+        format_sql: true
