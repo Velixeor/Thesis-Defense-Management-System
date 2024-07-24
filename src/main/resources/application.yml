@@ -6,7 +6,6 @@ spring:
     username: root
     password: root
     driver-class-name: org.postgresql.Driver
-
   jpa:
     open-in-view: false
     show-sql: true
@@ -14,3 +13,9 @@ spring:
     properties.hibernate:
         pretty_print: true
         format_sql: true
+  flyway:
+    user: root
+    password: root
+    schemas: vkr
+    locations: db.migration
+    url: jdbc:postgresql://localhost:5432/db
