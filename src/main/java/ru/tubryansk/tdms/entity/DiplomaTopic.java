@@ -17,7 +17,7 @@ import lombok.Setter;
 public class DiplomaTopic {
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)//Макс из-за SEQUENCE прога лежит, если хочешь, можешь менять я не понял что не нравиться при сборке
     private Integer id;
     @Column(name = "name", nullable = false)
     private String name;
