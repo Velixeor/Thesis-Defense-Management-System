@@ -10,7 +10,9 @@ spring:
     open-in-view: false
     show-sql: true
     hibernate.ddl-auto: validate
-    properties.hibernate:
+    database: postgresql
+    properties:
+      hibernate:
         pretty_print: true
         format_sql: true
   flyway:
