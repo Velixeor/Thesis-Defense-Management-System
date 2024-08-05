@@ -11,10 +11,10 @@ spring:
     show-sql: true
     hibernate.ddl-auto: validate
     database: postgresql
-    properties:
-      hibernate:
+    properties.hibernate:
         pretty_print: true
         format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
   flyway:
     user: root
     password: root
