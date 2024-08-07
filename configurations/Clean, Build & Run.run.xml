@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Clean, Build &amp; Run" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <module name="server" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="ru.tubryansk.tdms.TdmsApplication" />
+    <method v="2">
+      <option name="Maven.BeforeRunTask" enabled="true" file="$PROJECT_DIR$/pom.xml" goal="clean package -Dmaven.test.skip=true" />
+      <option name="RunConfigurationTask" enabled="true" run_configuration_name="Start RDBMS" run_configuration_type="docker-deploy" />
+    </method>
+  </configuration>
+</component>
