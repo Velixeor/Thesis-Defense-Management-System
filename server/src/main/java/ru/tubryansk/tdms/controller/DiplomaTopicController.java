@@ -15,9 +15,9 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/api/diploma-topic/")
+@RequestMapping("/api/v1/diploma-topic/")
 @Validated
-public class DiplomaTopicRestController {
+public class DiplomaTopicController {
     @Autowired
     private DiplomaTopicService diplomaTopicService;
 

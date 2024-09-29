@@ -3,6 +3,7 @@ package ru.tubryansk.tdms.config;
 
 import jakarta.servlet.http.HttpSessionEvent;
 import jakarta.servlet.http.HttpSessionListener;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,12 +19,12 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
 
 import static org.springframework.security.web.context.HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY;
 
@@ -31,19 +32,32 @@ import static org.springframework.security.web.context.HttpSessionSecurityContex
 @Configuration
 public class SecurityConfiguration {
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity, AuthenticationManager authenticationManager) throws Exception {
         return httpSecurity
                 .authorizeHttpRequests(this::configureHttpAuthorization)
                 .csrf(AbstractHttpConfigurer::disable)
-                .cors(AbstractHttpConfigurer::disable)
-                .authenticationManager(authenticationManager())
+                .cors(a -> a.configurationSource(corsConfiguration()))
+                .authenticationManager(authenticationManager)
                 .sessionManagement(this::configureSessionManagement)
                 .build();
     }
 
+    @Bean
+    public CorsConfigurationSource corsConfiguration() {
+        return request -> {
+            CorsConfiguration corsConfiguration = new CorsConfiguration();
+            corsConfiguration.applyPermitDefaultValues();
+            corsConfiguration.addAllowedMethod("DELETE");
+            corsConfiguration.addAllowedMethod("PUT");
+            corsConfiguration.addAllowedMethod("PATCH");
+            return corsConfiguration;
+        };
+    }
+
     private void configureHttpAuthorization(AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry httpAuthorization) {
         /* API ROUTES */
-        httpAuthorization.requestMatchers("/api/diploma-topic/**").permitAll();
+        httpAuthorization.requestMatchers("/api/v1/diploma-topic/**").permitAll();
+        httpAuthorization.requestMatchers("/api/v1/user/**").permitAll();
         httpAuthorization.requestMatchers("/api/**").denyAll();
         /* STATIC ROUTES */
         httpAuthorization.requestMatchers("/**").permitAll();
@@ -52,23 +66,14 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    public AuthenticationManager authenticationManager() {
-
-        return new ProviderManager(authenticationProvider());
+    public AuthenticationManager authenticationManager(UserDetailsService userDetailsService) {
+        return new ProviderManager(authenticationProvider(userDetailsService));
     }
 
-    private AuthenticationProvider authenticationProvider() {
+    private AuthenticationProvider authenticationProvider(UserDetailsService userDetailsService) {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider(passwordEncoder());
-        provider.setUserDetailsService(userDetailsService());
+        provider.setUserDetailsService(userDetailsService);
         return provider;
-    }
-
-    private UserDetailsService userDetailsService() {
-        return new InMemoryUserDetailsManager(User.builder()
-                .username("admin")
-                .password("{noop}admin")
-                .authorities("ROLE_STUDENT", "ROLE_TEACHER", "ROLE_CURATOR")
-                .build());
     }
 
     private PasswordEncoder passwordEncoder() {
@@ -76,14 +81,14 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    // todo: remove when login/logout is implemented
-    public HttpSessionListener autoAuthenticateUnderAdmin() {
+    public HttpSessionListener autoAuthenticateUnderAdmin(AuthenticationManager authenticationManager) {
         return new HttpSessionListener() {
             @Override
             public void sessionCreated(HttpSessionEvent se) {
+                LoggerFactory.getLogger(this.getClass()).info("Session created {}. Authenticated, as izrailev_v_ya_1", se.getSession().getId());
                 SecurityContext context = SecurityContextHolder.createEmptyContext();
-                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken("admin", "admin");
-                Authentication authenticated = authenticationManager().authenticate(authentication);
+                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken("izrailev_v_ya_1", "1");
+                Authentication authenticated = authenticationManager.authenticate(authentication);
                 context.setAuthentication(authenticated);
                 SecurityContextHolder.setContext(context);
                 se.getSession().setAttribute(SPRING_SECURITY_CONTEXT_KEY, context);
