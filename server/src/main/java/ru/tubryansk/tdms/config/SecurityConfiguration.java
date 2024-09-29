@@ -57,7 +57,7 @@ public class SecurityConfiguration {
     private void configureHttpAuthorization(AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry httpAuthorization) {
         /* API ROUTES */
         httpAuthorization.requestMatchers("/api/v1/diploma-topic/**").permitAll();
-        httpAuthorization.requestMatchers("/api/v1/user/**").permitAll();
+        httpAuthorization.requestMatchers("/api/v1/user/create").permitAll();
         httpAuthorization.requestMatchers("/api/**").denyAll();
         /* STATIC ROUTES */
         httpAuthorization.requestMatchers("/**").permitAll();

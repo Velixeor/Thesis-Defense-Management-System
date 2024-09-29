@@ -1,20 +1,19 @@
 package ru.tubryansk.tdms.controller;
 
-import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.tubryansk.tdms.dto.UserDTO;
 import ru.tubryansk.tdms.entity.User;
 import ru.tubryansk.tdms.service.UserService;
 
+
 @RestController
 @Validated
 @RequestMapping("/api/v1/user")
-@Slf4j
 public class UserController {
     @Autowired
     private UserService userService;
@@ -29,4 +28,10 @@ public class UserController {
     public void logout() {
         userService.logout();
     }
+
+    @PostMapping("/registration")
+    public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO) {
+        return new ResponseEntity<>(userService.createUser(userDTO), HttpStatus.CREATED);
+    }
+
 }
