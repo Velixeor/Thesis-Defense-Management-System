@@ -15,7 +15,7 @@ export class UserStore {
     }
 
     init() {
-        get<IUser>('/user/current').then((response) => {
+        get('/user/current').then((response: IUser) => {
             runInAction(() => {
                 this.user = response;
             });

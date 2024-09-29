@@ -11,3 +11,11 @@ export interface IAuthenticated {
 }
 
 export declare type IUser = {authenticated: false} | IAuthenticated;
+
+export interface IRegistration {
+    login: string,
+    password: string,
+    fullName: string,
+    email: string,
+    phone: string,
+}

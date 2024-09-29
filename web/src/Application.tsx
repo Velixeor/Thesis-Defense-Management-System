@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {RouterContext, RouterView} from "mobx-state-router";
 import {initApp} from "./utils/init.ts";
 import {MyRouterStore} from "./store/MyRouterStore.ts";
-import { RootStoreContext } from "./store/RootStore.tsx";
+import { RootStoreContext } from "./store/RootStore.ts";
 
 const rootStore = initApp();
 

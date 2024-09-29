@@ -37,9 +37,9 @@ public class User implements UserDetails {
     @Column(name = "number_phone", nullable = false, unique = true)
     private String numberPhone;
     @Column(name = "created_at", nullable = false)
-    private ZonedDateTime createdAt;
+    private ZonedDateTime createAt;
     @Column(name = "updated_at")
-    private ZonedDateTime updatedAt;
+    private ZonedDateTime updateAt;
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",schema = "vkr",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
