@@ -1,15 +1,16 @@
 package ru.tubryansk.tdms.dto;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Builder;
+import ru.tubryansk.tdms.entity.DiplomaTopic;
 
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class DiplomaTopicDTO {
-    private Integer id;
-    private String name;
+@Builder
+public record DiplomaTopicDTO(Integer id, String name) {
+    public static DiplomaTopicDTO fromEntity(DiplomaTopic diplomaTopic) {
+        return DiplomaTopicDTO.builder()
+                .id(diplomaTopic.getId())
+                .name(diplomaTopic.getName())
+                .build();
+    }
 }
