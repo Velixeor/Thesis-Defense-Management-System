@@ -1,23 +1,36 @@
+db:
+  url: jdbc:postgresql://localhost:5432/db
+  user: root
+  password: root
+  schema: vkr
+application:
+  name: @name@
+  version: @version@
+  type: production
+  port: 80
+  domain: tdms.tu-bryansk.ru
+  protocol: https
+
 spring:
   application:
     name: tdms
   datasource:
-    url: jdbc:postgresql://localhost:5432/db
-    username: root
-    password: root
-    driver-class-name: org.postgresql.Driver
+    url: ${db.url}
+    username: ${db.user}
+    password: ${db.password}
+    hikari:
+      schema: ${db.schema}
   jpa:
     open-in-view: false
-    show-sql: true
     hibernate.ddl-auto: validate
-    database: postgresql
-    properties.hibernate:
-        pretty_print: true
-        format_sql: true
-        dialect: org.hibernate.dialect.PostgreSQLDialect
   flyway:
-    user: root
-    password: root
-    schemas: vkr
+    url: ${db.url}
+    user: ${db.user}
+    password: ${db.password}
+    schemas: ${db.schema}
     locations: db.migration
-    url: jdbc:postgresql://localhost:5432/db
+server:
+  port: ${application.port}
+  address: ${application.domain}
+  compression:
+    enabled: true

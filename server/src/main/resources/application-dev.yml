@@ -1,0 +1,17 @@
+application:
+  type: development
+  port: 8080
+  domain: localhost
+  protocol: http
+spring:
+  flyway:
+    out-of-order: true
+  web:
+    resources:
+      static-locations: file://${user.dir}/web/dist/
+      chain:
+        cache: false
+        compressed: false
+server:
+  compression:
+    enabled: false

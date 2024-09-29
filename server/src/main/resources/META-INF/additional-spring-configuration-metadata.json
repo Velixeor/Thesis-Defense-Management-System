@@ -1,0 +1,53 @@
+{
+  "properties": [
+    {
+      "name": "db.url",
+      "type": "java.lang.String",
+      "description": "Database url."
+    },
+    {
+      "name": "db.user",
+      "type": "java.lang.String",
+      "description": "Database user."
+    },
+    {
+      "name": "db.password",
+      "type": "java.lang.String",
+      "description": "Database password."
+    },
+    {
+      "name": "db.schema",
+      "type": "java.lang.String",
+      "description": "Database schema."
+    },
+    {
+      "name": "application.name",
+      "type": "java.lang.String",
+      "description": "Service name."
+    },
+    {
+      "name": "application.version",
+      "type": "java.lang.String",
+      "description": "Service version."
+    },
+    {
+      "name": "application.type",
+      "type": "java.lang.String",
+      "description": "Service build type."
+    },
+    {
+      "name": "application.domain",
+      "type": "java.lang.String",
+      "description": "Service domain."
+    },
+    {
+      "name": "application.port",
+      "type": "java.lang.Integer",
+      "description": "Service port."
+    },
+    {
+      "name": "application.protocol",
+      "type": "java.lang.String",
+      "description": "Service protocol."
+    }
+  ] }

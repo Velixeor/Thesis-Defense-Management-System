@@ -1,0 +1,1 @@
+UPDATE vkr.user SET password = '{noop}1';
