@@ -1,7 +1,7 @@
 import {Container, Nav, Navbar, NavDropdown} from "react-bootstrap";
 import {FC} from "react";
 import {RouterLink} from "mobx-state-router";
-import {useRootStore} from "../../store/RootStore.tsx";
+import {useRootStore} from "../../store/RootStore.ts";
 import {IAuthenticated} from "../../models/user.ts";
 import {observer} from "mobx-react";
 

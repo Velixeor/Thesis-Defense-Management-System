@@ -2,6 +2,7 @@ package ru.tubryansk.tdms.exception;
 
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.aspectj.apache.bcel.classfile.Unknown;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -10,6 +11,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 import ru.tubryansk.tdms.dto.ErrorResponse;
+
+import java.net.UnknownHostException;
+
 
 @RestControllerAdvice
 @Slf4j
@@ -39,6 +43,9 @@ public class GlobalExceptionHandler {
     public ErrorResponse handleUnexpectedException(Exception e) {
         // todo: make error page
         log.error("Unexpected exception.", e);
+        if(e instanceof UnknownHostException uhe){
+            
+        }
         return new ErrorResponse(e.getMessage(), ErrorResponse.ErrorCode.INTERNAL_ERROR);
     }
 }

@@ -5,7 +5,6 @@ import Footer from "./Footer.tsx";
 
 export abstract class DefaultPage extends Component {
     abstract get page(): ReactNode;
-    // declare context: ContextType<typeof RootStoreContext>
 
     render() {
         return <>

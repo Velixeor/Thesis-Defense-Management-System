@@ -40,4 +40,15 @@ public record UserDTO(
                 .authorities(user.getRoles().stream().map(Role::getAuthority).toList())
                 .build();
     }
+    public static User toEntity(UserDTO userDTO) {
+        User user = new User();
+        user.setLogin(userDTO.login());
+        user.setPassword(userDTO.password());
+        user.setFullName(userDTO.fullName());
+        user.setMail(userDTO.email());
+        user.setNumberPhone(userDTO.phoneNumber());
+        user.setCreateAt(userDTO.createdAt());
+        user.setUpdateAt(userDTO.updatedAt());
+        return user;
+    }
 }

@@ -31,6 +31,6 @@ spring:
     locations: db.migration
 server:
   port: ${application.port}
-  address: ${application.domain}
+#  address: ${application.domain}
   compression:
     enabled: true

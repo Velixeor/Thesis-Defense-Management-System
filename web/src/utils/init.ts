@@ -1,5 +1,5 @@
 import {configure} from "mobx";
-import {RootStore} from "../store/RootStore.tsx";
+import {RootStore} from "../store/RootStore.ts";
 
 
 export const initMobX = () => {
