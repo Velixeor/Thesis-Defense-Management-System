@@ -1,5 +1,6 @@
 package ru.tubryansk.tdms.service;
 
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
@@ -13,7 +14,6 @@ import org.springframework.stereotype.Service;
 import ru.tubryansk.tdms.dto.UserDTO;
 import ru.tubryansk.tdms.entity.User;
 import ru.tubryansk.tdms.exception.user.UserCreationException;
-import ru.tubryansk.tdms.repository.RoleRepository;
 import ru.tubryansk.tdms.repository.UserRepository;
 
 import static org.springframework.security.web.context.HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY;
@@ -57,7 +57,7 @@ public class UserService implements UserDetailsService {
         if (!userRepository.existsByLoginOrNumberPhoneOrMail(userDTO.login(), userDTO.phoneNumber(), userDTO.email())) {
             user = UserDTO.toEntity(userDTO);
             User resultUser = userRepository.save(user);
-            UserDTO resultUserDTO = UserDTO.from(resultUser,true);
+            UserDTO resultUserDTO = UserDTO.from(resultUser, true);
             log.info("User created successfully: {}", userDTO);
             return resultUserDTO;
         } else {

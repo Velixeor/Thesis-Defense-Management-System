@@ -8,7 +8,7 @@ spring:
     out-of-order: true
   web:
     resources:
-      static-locations: file://${user.dir}/web/dist/
+      static-locations: file:///${user.dir}/web/dist/
       chain:
         cache: false
         compressed: false

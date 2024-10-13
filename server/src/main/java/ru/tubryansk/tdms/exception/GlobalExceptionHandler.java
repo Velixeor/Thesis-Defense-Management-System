@@ -43,9 +43,6 @@ public class GlobalExceptionHandler {
     public ErrorResponse handleUnexpectedException(Exception e) {
         // todo: make error page
         log.error("Unexpected exception.", e);
-        if(e instanceof UnknownHostException uhe){
-            
-        }
         return new ErrorResponse(e.getMessage(), ErrorResponse.ErrorCode.INTERNAL_ERROR);
     }
 }
