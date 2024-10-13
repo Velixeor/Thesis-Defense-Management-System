@@ -1,19 +1,32 @@
-import {useState} from "react";
-import {Button, Col, Container, Form, Row} from "react-bootstrap";
-import {IRegistration} from "../../../models/user.ts";
-import {post} from "../../../utils/request.tsx";
+import React from "react";
+import { Button, Col, Form, Row } from "react-bootstrap";
+import { IRegistration } from "../../../models/user.ts";
+import { post } from "../../../utils/request.tsx";
+import { DefaultPage } from "../../Page/DefaultPage.tsx";
 
-const RegistrationForm = () => {
-    const [fullName, setFullName] = useState("");
-    const [login, setLogin] = useState("");
-    const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
-    const [email, setEmail] = useState("");
-    const [phone, setPhone] = useState("");
+class RegistrationForm extends DefaultPage {
+    state = {
+        fullName: "",
+        login: "",
+        password: "",
+        confirmPassword: "",
+        email: "",
+        phoneNumber: "",
+        phoneError: "",
+    };
 
-    const handleSubmit = () => {
+    handleSubmit = (event: React.FormEvent) => {
+        event.preventDefault();
+
+        const { password, confirmPassword, email, fullName, phoneNumber, login, phoneError } = this.state;
+
         if (password !== confirmPassword) {
             alert("Пароли не совпадают. Пожалуйста, убедитесь, что вы правильно подтвердили пароль.");
+            return;
+        }
+
+        if (phoneError) {
+            alert("Пожалуйста, исправьте ошибки в форме.");
             return;
         }
 
@@ -21,27 +34,41 @@ const RegistrationForm = () => {
             email: email,
             fullName: fullName,
             password: password,
-            phone: phone,
-            login: login
-        }
+            phoneNumber: phoneNumber,
+            login: login,
+        };
 
-        post("/user/registration",userDTO).then()
+        post("/user/registration", userDTO).then();
     };
 
-    return (
-        <Container className="mt-3">
+    handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = event.target;
+        const phoneRegex = /^\+7\d{10}$/;
+        if (name === "phoneNumber") {
+            this.setState({
+                phoneNumber: value,
+                phoneError: phoneRegex.test(value) ? "" : "Некорректный номер телефона",
+            });
+        } else {
+            this.setState({ [name]: value } as Pick<RegistrationForm["state"], keyof RegistrationForm["state"]>);
+        }
+    };
+
+    get page() {
+        return (
             <Row className="justify-content-center">
                 <Col md={6}>
                     <h2 className="text-center mb-4">Регистрация</h2>
-                    <Form>
+                    <Form onSubmit={this.handleSubmit}>
                         {/* Поля ввода */}
                         <Form.Group controlId="fullName" className="mb-3">
                             <Form.Label>ФИО</Form.Label>
                             <Form.Control
                                 type="text"
+                                name="fullName"
                                 placeholder="Введите ваше полное имя"
-                                value={fullName}
-                                onChange={(e) => setFullName(e.target.value)}
+                                value={this.state.fullName}
+                                onChange={this.handleInputChange}
                                 required
                             />
                         </Form.Group>
@@ -49,9 +76,10 @@ const RegistrationForm = () => {
                             <Form.Label>Логин</Form.Label>
                             <Form.Control
                                 type="text"
+                                name="login"
                                 placeholder="Введите логин"
-                                value={login}
-                                onChange={(e) => setLogin(e.target.value)}
+                                value={this.state.login}
+                                onChange={this.handleInputChange}
                                 required
                             />
                         </Form.Group>
@@ -59,9 +87,10 @@ const RegistrationForm = () => {
                             <Form.Label>Пароль</Form.Label>
                             <Form.Control
                                 type="password"
+                                name="password"
                                 placeholder="Введите пароль"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
+                                value={this.state.password}
+                                onChange={this.handleInputChange}
                                 required
                             />
                         </Form.Group>
@@ -69,9 +98,10 @@ const RegistrationForm = () => {
                             <Form.Label>Подтвердите пароль</Form.Label>
                             <Form.Control
                                 type="password"
+                                name="confirmPassword"
                                 placeholder="Повторите пароль"
-                                value={confirmPassword}
-                                onChange={(e) => setConfirmPassword(e.target.value)}
+                                value={this.state.confirmPassword}
+                                onChange={this.handleInputChange}
                                 required
                             />
                         </Form.Group>
@@ -79,32 +109,37 @@ const RegistrationForm = () => {
                             <Form.Label>Email</Form.Label>
                             <Form.Control
                                 type="email"
+                                name="email"
                                 placeholder="Введите ваш email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
+                                value={this.state.email}
+                                onChange={this.handleInputChange}
                                 required
                             />
                         </Form.Group>
-                        <Form.Group controlId="numberPhone" className="mb-3">
+                        <Form.Group controlId="phoneNumber" className="mb-3">
                             <Form.Label>Номер телефона</Form.Label>
                             <Form.Control
-                                type="tel"
+                                type="text"
+                                name="phoneNumber"
                                 placeholder="Введите ваш номер телефона"
-                                value={phone}
-                                onChange={(e) => setPhone(e.target.value)}
+                                value={this.state.phoneNumber}
+                                onChange={this.handleInputChange}
                                 required
                             />
+                            {this.state.phoneError && (
+                                <Form.Text className="text-danger">{this.state.phoneError}</Form.Text>
+                            )}
                         </Form.Group>
                         <div className="text-center">
-                            <Button onClick={handleSubmit} variant="primary" type="submit">
+                            <Button variant="primary" type="submit">
                                 Зарегистрироваться
                             </Button>
                         </div>
                     </Form>
                 </Col>
             </Row>
-        </Container>
-    );
-};
+        );
+    }
+}
 
 export default RegistrationForm;

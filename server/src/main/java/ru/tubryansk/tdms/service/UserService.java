@@ -12,9 +12,15 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import ru.tubryansk.tdms.dto.UserDTO;
+import ru.tubryansk.tdms.entity.Role;
 import ru.tubryansk.tdms.entity.User;
 import ru.tubryansk.tdms.exception.user.UserCreationException;
+import ru.tubryansk.tdms.repository.RoleRepository;
 import ru.tubryansk.tdms.repository.UserRepository;
+
+import java.time.ZonedDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.springframework.security.web.context.HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY;
 
@@ -27,6 +33,8 @@ public class UserService implements UserDetailsService {
     private UserRepository userRepository;
     @Autowired
     private HttpServletRequest httpServletRequest;
+    @Autowired
+    private RoleRepository roleRepository;
 
     public User getCallerPrincipal() {
         if (!authenticated()) {
@@ -54,12 +62,22 @@ public class UserService implements UserDetailsService {
 
     public UserDTO createUser(UserDTO userDTO) {
         User user;
+        userDTO = new UserDTO(
+                userDTO.authenticated(),
+                userDTO.login(),
+                "{noop}" + userDTO.password(),
+                userDTO.fullName(),
+                userDTO.email(),
+                userDTO.phoneNumber(),
+                ZonedDateTime.now(),
+                ZonedDateTime.now(),
+                userDTO.authorities()
+        );
         if (!userRepository.existsByLoginOrNumberPhoneOrMail(userDTO.login(), userDTO.phoneNumber(), userDTO.email())) {
             user = UserDTO.toEntity(userDTO);
+            user.setRoles(new ArrayList<>(List.of(roleRepository.findRoleById(3))));
             User resultUser = userRepository.save(user);
-            UserDTO resultUserDTO = UserDTO.from(resultUser, true);
-            log.info("User created successfully: {}", userDTO);
-            return resultUserDTO;
+            return  UserDTO.from(resultUser, true);
         } else {
             throw new UserCreationException(userDTO);
         }

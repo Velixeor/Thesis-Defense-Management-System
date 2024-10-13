@@ -17,5 +17,5 @@ export interface IRegistration {
     password: string,
     fullName: string,
     email: string,
-    phone: string,
+    phoneNumber: string,
 }

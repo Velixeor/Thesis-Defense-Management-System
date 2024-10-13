@@ -38,7 +38,10 @@ export const Header: FC = observer(() => {
 
                     {
                         !user.authenticated &&
-                        <Nav.Link as={RouterLink} routeName='login'>Войти</Nav.Link>
+                        <>
+                            <Nav.Link as={RouterLink} routeName='login'>Войти</Nav.Link>
+                            <Nav.Link as={RouterLink} routeName='register'>Зарегистрироваться</Nav.Link>
+                        </>
                     }
                 </Nav>
             </Container>

@@ -36,9 +36,9 @@ public class User implements UserDetails {
     private String mail;
     @Column(name = "number_phone", nullable = false, unique = true)
     private String numberPhone;
-    @Column(name = "create_at", nullable = false)
+    @Column(name = "created_at", nullable = false)
     private ZonedDateTime createAt;
-    @Column(name = "update_at")
+    @Column(name = "updated_at")
     private ZonedDateTime updateAt;
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",schema = "vkr",

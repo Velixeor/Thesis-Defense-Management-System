@@ -2,6 +2,7 @@ import UserProfile from "./components/Page/UserProfile.tsx";
 import React from "react";
 import Root from "./components/Page/Root.tsx";
 import Error from "./components/Page/Error.tsx";
+import RegistrationForm from "./components/auth/registration/RegistrationForm.tsx";
 
 interface Route {
     name: string;
@@ -17,6 +18,10 @@ export const routes: Route[] = [{
     name: 'profile',
     pattern: '/profile',
     view: <UserProfile/>,
+}, {
+    name: 'register',
+    pattern: '/register',
+    view: <RegistrationForm/>,
 }, {
     name: 'error',
     pattern: '/error',
