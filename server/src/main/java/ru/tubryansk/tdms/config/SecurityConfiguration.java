@@ -36,23 +36,23 @@ public class SecurityConfiguration {
         return httpSecurity
                 .authorizeHttpRequests(this::configureHttpAuthorization)
                 .csrf(AbstractHttpConfigurer::disable)
-                //.cors(a -> a.configurationSource(corsConfiguration()))
+                .cors(a -> a.configurationSource(corsConfiguration()))
                 .authenticationManager(authenticationManager)
                 .sessionManagement(this::configureSessionManagement)
                 .build();
     }
 
-    //@Bean
-    //public CorsConfigurationSource corsConfiguration() {
-    //    return request -> {
-    //        CorsConfiguration corsConfiguration = new CorsConfiguration();
-    //        corsConfiguration.applyPermitDefaultValues();
-    //        corsConfiguration.addAllowedMethod("DELETE");
-    //        corsConfiguration.addAllowedMethod("PUT");
-    //        corsConfiguration.addAllowedMethod("PATCH");
-    //        return corsConfiguration;
-    //    };
-    //}
+    @Bean
+    public CorsConfigurationSource corsConfiguration() {
+        return request -> {
+            CorsConfiguration corsConfiguration = new CorsConfiguration();
+            corsConfiguration.applyPermitDefaultValues();
+            corsConfiguration.addAllowedMethod("DELETE");
+            corsConfiguration.addAllowedMethod("PUT");
+            corsConfiguration.addAllowedMethod("PATCH");
+            return corsConfiguration;
+        };
+    }
 
     private void configureHttpAuthorization(AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry httpAuthorization) {
         /* API ROUTES */
