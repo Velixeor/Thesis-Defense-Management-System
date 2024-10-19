@@ -35,8 +35,8 @@ public record UserDTO(
                 .fullName(user.getFullName())
                 .email(user.getMail())
                 .phoneNumber(user.getNumberPhone())
-                .createdAt(user.getCreateAt())
-                .updatedAt(user.getUpdateAt())
+                .createdAt(user.getCreatedAt())
+                .updatedAt(user.getUpdatedAt())
                 .authorities(user.getRoles().stream().map(Role::getAuthority).toList())
                 .build();
     }

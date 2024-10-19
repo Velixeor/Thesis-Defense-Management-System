@@ -1,4 +1,4 @@
-INSERT INTO vkr.user (login, password, full_name, mail, number_phone, create_at, update_at)
+INSERT INTO vkr.user (login, password, full_name, mail, number_phone, created_at, updated_at)
 VALUES ('akulenko_mikhail', 'password123', 'Акуленко Михаил Вячеславович', 'akulenko.mikhail@example.com',
         '+79110000001', NOW(), NOW()),
        ('borovikov_artem', 'password123', 'Боровиков Артём Викторович', 'borovikov.artem@example.com', '+79110000002',

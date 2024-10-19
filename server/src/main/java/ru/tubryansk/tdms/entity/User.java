@@ -36,10 +36,10 @@ public class User implements UserDetails {
     private String mail;
     @Column(name = "number_phone", nullable = false, unique = true)
     private String numberPhone;
-    @Column(name = "create_at", nullable = false)
-    private ZonedDateTime createAt;
-    @Column(name = "update_at")
-    private ZonedDateTime updateAt;
+    @Column(name = "created_at", nullable = false)
+    private ZonedDateTime createdAt;
+    @Column(name = "updated_at")
+    private ZonedDateTime updatedAt;
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",schema = "vkr",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
