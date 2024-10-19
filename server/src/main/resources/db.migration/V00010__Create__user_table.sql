@@ -6,7 +6,7 @@ create table vkr.user
     full_name    text                        not null,
     mail         text                        not null unique,
     number_phone text                        not null unique,
-    create_at    timestamp(6) with time zone not null,
-    update_at    timestamp(6) with time zone
+    created_at    timestamp(6) with time zone not null,
+    updated_at    timestamp(6) with time zone
 
 )
