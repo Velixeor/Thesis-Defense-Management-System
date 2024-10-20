@@ -1,4 +1,4 @@
-import {DefaultPage} from "./DefaultPage.tsx";
+import {DefaultPage} from "./layout/DefaultPage";
 
 export default class Error extends DefaultPage {
     get page() {

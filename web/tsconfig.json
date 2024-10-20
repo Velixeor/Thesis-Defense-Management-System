@@ -1,11 +1,24 @@
 {
-  "files": [],
-  "references": [
-    {
-      "path": "./tsconfig.app.json"
-    },
-    {
-      "path": "./tsconfig.node.json"
-    }
-  ]
+  "compilerOptions": {
+    "outDir": "./dist",
+    "target": "ES5",
+    "module": "ES6",
+    "jsx": "react-jsx",
+    "sourceMap": false,
+    "useDefineForClassFields": true,
+    "moduleResolution": "Bundler",
+    "composite": true,
+    "resolveJsonModule": true,
+
+    /* enabling decorators */
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+
+    /* lint */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitAny": true,
+    "allowSyntheticDefaultImports": true
+  }
 }

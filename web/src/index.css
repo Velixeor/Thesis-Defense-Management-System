@@ -65,3 +65,10 @@ body {
 footer {
     margin-top: auto;
 }
+
+#fullscreen-loader {
+    min-height: calc(100vh - (56px + 64px + 48px + 48px));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
