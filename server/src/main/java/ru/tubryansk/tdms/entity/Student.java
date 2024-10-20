@@ -3,6 +3,8 @@ package ru.tubryansk.tdms.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.springframework.context.annotation.Scope;
+import org.springframework.web.context.annotation.SessionScope;
 
 
 @Data
@@ -49,5 +51,4 @@ public class Student {
     @ManyToOne
     @JoinColumn(name = "group_id", nullable = false)
     private Group group;
-
 }

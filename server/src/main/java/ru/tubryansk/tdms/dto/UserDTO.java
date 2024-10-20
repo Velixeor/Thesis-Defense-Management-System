@@ -1,8 +1,8 @@
 package ru.tubryansk.tdms.dto;
 
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Builder;
-import ru.tubryansk.tdms.entity.Role;
 import ru.tubryansk.tdms.entity.User;
 
 import java.time.ZonedDateTime;
@@ -10,18 +10,19 @@ import java.util.List;
 
 
 @Builder
+@JsonInclude(JsonInclude.Include.NON_ABSENT)
 public record UserDTO(
         boolean authenticated,
         String login,
         String password,
         String fullName,
         String email,
-        String phoneNumber,
+        String phone,
         ZonedDateTime createdAt,
         ZonedDateTime updatedAt,
-        List<String> authorities) {
+        List<RoleDTO> authorities) {
 
-    public static UserDTO fromUnauthenticated() {
+    public static UserDTO unauthenticated() {
         return UserDTO.builder()
                 .authenticated(false)
                 .build();
@@ -34,10 +35,10 @@ public record UserDTO(
                 .password(anonymize ? "" : user.getPassword())
                 .fullName(user.getFullName())
                 .email(user.getMail())
-                .phoneNumber(user.getNumberPhone())
+                .phone(user.getNumberPhone())
                 .createdAt(user.getCreatedAt())
                 .updatedAt(user.getUpdatedAt())
-                .authorities(user.getRoles().stream().map(Role::getAuthority).toList())
+                .authorities(RoleDTO.from(user))
                 .build();
     }
 }

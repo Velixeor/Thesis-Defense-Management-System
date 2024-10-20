@@ -11,8 +11,6 @@ import org.springframework.context.ConfigurableApplicationContext;
 @Slf4j
 public class TdmsApplication {
     public static void main(String[] args) {
-        ConfigurableApplicationContext context = SpringApplication.run(TdmsApplication.class, args);
-        String staticLocation = context.getEnvironment().getProperty("spring.web.resources.static-locations");
-        log.info("Static location: {}", staticLocation);
+        SpringApplication.run(TdmsApplication.class, args);
     }
 }

@@ -7,13 +7,15 @@ application:
   name: @name@
   version: @version@
   type: production
-  port: 80
+  port: 443
   domain: tdms.tu-bryansk.ru
   protocol: https
 
 spring:
   application:
-    name: tdms
+    name: ${application.name}
+  main:
+    allow-circular-references: true
   datasource:
     url: ${db.url}
     username: ${db.user}

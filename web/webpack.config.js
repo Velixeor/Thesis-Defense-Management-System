@@ -28,8 +28,16 @@ module.exports = {
         path: path.resolve(__dirname, 'dist')
     },
     devServer: {
+        client: {
+            overlay: {
+                errors: true,
+                warnings: false,
+                runtimeErrors: false,
+            },
+        },
+        historyApiFallback: true,
         static: path.join(__dirname, "dist"),
-        compress: false,
+        compress: true,
         port: 8081,
     },
     plugins: [

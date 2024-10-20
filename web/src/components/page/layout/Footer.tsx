@@ -1,5 +1,6 @@
 import {Container, Nav, Navbar} from "react-bootstrap";
-import {GitHubLogo} from "../../utils/svg.tsx";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {findIconDefinition} from "@fortawesome/fontawesome-svg-core";
 
 const Footer = () => {
     return (
@@ -9,7 +10,7 @@ const Footer = () => {
                     <Navbar.Text>Thesis Defence Management System &copy;</Navbar.Text>
                     <Nav>
                         <Nav.Link href="https://github.com/Velixeor/Thesis-Defense-Management-System">
-                            <GitHubLogo width={32} height={32}/>
+                            <FontAwesomeIcon icon={findIconDefinition({iconName:'github', prefix:'fab'})} size="xl"/>
                         </Nav.Link>
                     </Nav>
                 </Container>

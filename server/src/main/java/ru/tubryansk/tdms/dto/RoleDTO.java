@@ -1,15 +1,19 @@
 package ru.tubryansk.tdms.dto;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import ru.tubryansk.tdms.entity.Role;
+import ru.tubryansk.tdms.entity.User;
+
+import java.util.List;
 
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class RoleDTO {
-    private Integer id;
-    private String name;
+public record RoleDTO(String name, String authority) {
+
+    public static RoleDTO from(Role role) {
+        return new RoleDTO(role.getName(), role.getAuthority());
+    }
+
+    public static List<RoleDTO> from(User user) {
+        return user.getRoles().stream().map(RoleDTO::from).toList();
+    }
 }

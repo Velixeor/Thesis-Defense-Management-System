@@ -1,3 +1,5 @@
+import {IAuthority} from "./role";
+
 export interface IAuthenticated {
     authenticated: true,
     login: string,
@@ -7,7 +9,7 @@ export interface IAuthenticated {
     phone: string,
     createdAt: string,
     updatedAt: string,
-    authorities: string[],
+    authorities: IAuthority[],
 }
 
 export declare type IUser = {authenticated: false} | IAuthenticated;
