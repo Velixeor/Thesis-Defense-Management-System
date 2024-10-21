@@ -1,29 +1,34 @@
 import {GitHubLogo} from './Svgs.tsx';
 import {Container, Nav, Navbar, NavDropdown} from "react-bootstrap";
+import {Link} from "react-router-dom";
 
-const Header = () =>
+const Header = () => (
     <header>
         <Navbar className="bg-body-tertiary" fixed="top">
             <Container>
-                <Navbar.Brand className="" href="#">TDMS</Navbar.Brand>
+                <Navbar.Brand href="#">TDMS</Navbar.Brand>
                 <Nav>
                     <NavDropdown title="Группы">
                         <NavDropdown.Item href="#">Список</NavDropdown.Item>
                         <NavDropdown.Item href="#">Редактировать</NavDropdown.Item>
                     </NavDropdown>
                 </Nav>
-
+                <Nav className="StudentList">
+                    {/* Используем Link для перехода на компонент со списком студентов */}
+                    <Nav.Link as={Link} to="/drag-and-drop-student">Студентов Список</Nav.Link>
+                </Nav>
                 <Nav className="ms-auto">
                     <Navbar.Text>Пользователь:</Navbar.Text>
                     <NavDropdown title="Фамилия И. О." id="basic-nav-dropdown">
                         <NavDropdown.Item href="#">Моя страница</NavDropdown.Item>
-                        <NavDropdown.Divider/>
+                        <NavDropdown.Divider />
                         <NavDropdown.Item href="#">Выйти</NavDropdown.Item>
                     </NavDropdown>
                 </Nav>
             </Container>
         </Navbar>
     </header>
+);
 
 const Footer = () => {
     return (
