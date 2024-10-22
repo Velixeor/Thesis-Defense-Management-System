@@ -16,7 +16,7 @@ public record UserDTO(
         String password,
         String fullName,
         String email,
-        String phoneNumber,
+        String phone,
         ZonedDateTime createdAt,
         ZonedDateTime updatedAt,
         List<String> authorities) {
@@ -34,10 +34,21 @@ public record UserDTO(
                 .password(anonymize ? "" : user.getPassword())
                 .fullName(user.getFullName())
                 .email(user.getMail())
-                .phoneNumber(user.getNumberPhone())
-                .createdAt(user.getCreatedAt())
-                .updatedAt(user.getUpdatedAt())
+                .phone(user.getNumberPhone())
+                .createdAt(user.getCreateAt())
+                .updatedAt(user.getUpdateAt())
                 .authorities(user.getRoles().stream().map(Role::getAuthority).toList())
                 .build();
+    }
+    public static User toEntity(UserDTO userDTO) {
+        User user = new User();
+        user.setLogin(userDTO.login());
+        user.setPassword(userDTO.password());
+        user.setFullName(userDTO.fullName());
+        user.setMail(userDTO.email());
+        user.setNumberPhone(userDTO.phone());
+        user.setCreateAt(userDTO.createdAt());
+        user.setUpdateAt(userDTO.updatedAt());
+        return user;
     }
 }

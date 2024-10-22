@@ -1,15 +1,16 @@
 package ru.tubryansk.tdms.dto;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Builder;
+import ru.tubryansk.tdms.entity.Role;
+
+@Builder
+public record RoleDTO(
+        Integer id,
+        String name,String authority) {
 
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class RoleDTO {
-    private Integer id;
-    private String name;
+    public static RoleDTO fromEntity(Role role) {
+        return new RoleDTO(role.getId(), role.getName(),role.getAuthority());
+    }
 }

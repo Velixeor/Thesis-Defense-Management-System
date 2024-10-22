@@ -1,6 +1,6 @@
 import {browserHistory, createRouterState, HistoryAdapter, RouterStore} from "mobx-state-router";
 import {routes} from "../routes.tsx";
-import {RootStore} from "./RootStore.tsx";
+import {RootStore} from "./RootStore.ts";
 
 
 export class MyRouterStore extends RouterStore {
